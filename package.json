@@ -1,0 +1,36 @@
+{
+  "name": "access-control",
+  "version": "1.0.0",
+  "description": "Website for Access Control System",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camiloriosf/AccessControl.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/camiloriosf/AccessControl/issues"
+  },
+  "homepage": "https://github.com/camiloriosf/AccessControl#readme",
+  "dependencies": {
+    "material-ui": "^1.0.0-beta.17",
+    "material-ui-icons": "^1.0.0-beta.17",
+    "next": "^4.1.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.1",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0"
+  }
+}
