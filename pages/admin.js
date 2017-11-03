@@ -3,36 +3,36 @@ import Router from 'next/router';
 import { withApollo } from 'react-apollo';
 import { withStyles } from 'material-ui/styles';
 import withRoot from '../components/withRoot';
+import Main from '../components/admin/main';
+import Locations from '../components/admin/locations';
 import withData from '../lib/withData';
-import Signin from '../components/auth/signin';
 import checkLoggedIn from '../lib/check-logged-in';
 
 const styles = {
   root: {
-    paddingTop: 200,
-    width: 400,
-    margin: '0 auto',
+
   },
 };
 
-class Index extends Component {
+class Admin extends Component {
   state = {
     loading: true,
+    id: '',
   };
 
   componentDidMount = () => {
-    // console.log(this.props);
     if (localStorage.getItem('user')) { // eslint-disable-line no-undef
       const user = JSON.parse(localStorage.getItem('user')); // eslint-disable-line no-undef
+      this.setState({ id: user.id });
       checkLoggedIn(this.props.client, user).then(({ loggedInUser }) => {
         if (loggedInUser !== null) {
-          if (loggedInUser.type === 'admin') Router.push('/admin');
+          if (loggedInUser.type === 'admin') this.renderComponent();
           else if (loggedInUser.type === 'user') Router.push('/user');
-          else { localStorage.removeItem('user'); localStorage.removeItem('token'); } // eslint-disable-line no-undef
-        } else this.renderComponent();
-      }).catch(() => this.renderComponent());
+          else { localStorage.removeItem('user'); localStorage.removeItem('token'); Router.push('/'); } // eslint-disable-line no-undef
+        } else Router.push('/');
+      }).catch(() => Router.push('/'));
     } else {
-      this.renderComponent();
+      Router.push('/');
     }
   }
 
@@ -47,11 +47,13 @@ class Index extends Component {
           this.state.loading
             ? 'Loading ...'
             :
-            <Signin />
+            <Main handleChange={this.handleChange}>
+              <Locations userId={this.state.id} />
+            </Main>
         }
       </div>
     );
   }
 }
 
-export default withRoot(withData(withApollo(withStyles(styles)(Index))));
+export default withRoot(withData(withApollo(withStyles(styles)(Admin))));

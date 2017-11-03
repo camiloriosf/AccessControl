@@ -1,6 +1,5 @@
-/* eslint-disable flowtype/require-valid-file-annotation */
-
 import React, { Component } from 'react';
+import Link from 'next/link';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
@@ -25,10 +24,6 @@ const styles = {
 };
 
 class Recover extends Component {
-  handleChange = name => (event) => {
-    this.setState({ [name]: event.target.checked });
-  };
-
   render() {
     return (
       <div className={this.props.classes.root}>
@@ -40,16 +35,20 @@ class Recover extends Component {
           <Button raised className={this.props.classes.button} color="accent" onClick={this.handleClick}>
             Recover password
           </Button>
-          <Button className={this.props.classes.buttonSec} color="primary" onClick={this.props.handleFormChange('signin')}>
-            <Typography type="caption">
-              Signin
-            </Typography>
-          </Button>
-          <Button className={this.props.classes.buttonSec} color="primary" onClick={this.props.handleFormChange('signup')}>
-            <Typography type="caption">
-              Signup
-            </Typography>
-          </Button>
+          <Link href="/">
+            <Button className={this.props.classes.buttonSec} color="primary">
+              <Typography type="caption">
+                Signin
+              </Typography>
+            </Button>
+          </Link>
+          <Link href="/signup">
+            <Button className={this.props.classes.buttonSec} color="primary">
+              <Typography type="caption">
+                Signup
+              </Typography>
+            </Button>
+          </Link>
         </Paper>
       </div>
     );

@@ -4,7 +4,7 @@ import { withApollo } from 'react-apollo';
 import { withStyles } from 'material-ui/styles';
 import withRoot from '../components/withRoot';
 import withData from '../lib/withData';
-import Signin from '../components/auth/signin';
+import RecoverComponent from '../components/auth/recover';
 import checkLoggedIn from '../lib/check-logged-in';
 
 const styles = {
@@ -15,11 +15,10 @@ const styles = {
   },
 };
 
-class Index extends Component {
+class Recover extends Component {
   state = {
     loading: true,
   };
-
   componentDidMount = () => {
     // console.log(this.props);
     if (localStorage.getItem('user')) { // eslint-disable-line no-undef
@@ -39,7 +38,6 @@ class Index extends Component {
   renderComponent = () => {
     this.setState({ loading: false });
   }
-
   render() {
     return (
       <div className={this.props.classes.root}>
@@ -47,11 +45,11 @@ class Index extends Component {
           this.state.loading
             ? 'Loading ...'
             :
-            <Signin />
+            <RecoverComponent />
         }
       </div>
     );
   }
 }
 
-export default withRoot(withData(withApollo(withStyles(styles)(Index))));
+export default withRoot(withData(withApollo(withStyles(styles)(Recover))));
