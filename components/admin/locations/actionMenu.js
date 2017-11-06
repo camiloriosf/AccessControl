@@ -144,7 +144,7 @@ class ActionMenu extends Component {
           open={this.state.open}
           onRequestClose={this.handleRequestClose}
         >
-          <DialogTitle className={this.props.classes.dialog}>Crear Emplazamiento</DialogTitle>
+          <DialogTitle className={this.props.classes.dialog}>Crear Edificio/Condominio</DialogTitle>
           <DialogContent>
             <TextField
               id="name"

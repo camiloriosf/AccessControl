@@ -3,7 +3,6 @@ import { gql, graphql } from 'react-apollo';
 import Tour from 'reactour';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import List from 'material-ui/List';
 import ActionMenu from './locations/actionMenu';
@@ -15,7 +14,7 @@ const styles = {
   },
 };
 
-const steps1 = [
+const steps = [
   {
     selector: '[data-tut="start"]',
     content: () => (
@@ -32,14 +31,38 @@ const steps1 = [
       </div>
     ),
   },
-];
-const steps2 = [
   {
-    selector: '[data-tut="test"]',
+    selector: '[data-tut="item"]',
     content: () => (
       <div>
         <Typography type="body1" color="inherit" paragraph>
           {'Aquí podrás ver los datos de los lugares que administras, así como también agregar nuevos usuarios.'}
+        </Typography>
+        <Typography type="body1" color="inherit" paragraph>
+          {'Haz click en opciones para agregar un nuevo usuario'}
+        </Typography>
+      </div>
+    ),
+  },
+  {
+    selector: '[data-tut="user"]',
+    content: () => (
+      <div>
+        <Typography type="body1" color="inherit" paragraph>
+          {'Aquí podrás ver los usuarios registrados para este edificio/condominio. Haz click en el 1'}
+        </Typography>
+      </div>
+    ),
+  },
+  {
+    selector: '[data-tut="users"]',
+    content: () => (
+      <div>
+        <Typography type="body1" color="inherit" paragraph>
+          {'Aquí podrás ver el Nombre, Usuario, Ultimo ingresoa la plataforma y eliminar a los usuarios con acceso al Edificio/Condominio.'}
+        </Typography>
+        <Typography type="body1" color="inherit" paragraph>
+          {'Recuerda que para que las personas asignadas a cada Edificio/Condominio pueden ingresar a la platadorma debes entregarles el nombre de usuario y la contraseña que estableciste al crearlos'}
         </Typography>
       </div>
     ),
@@ -48,21 +71,41 @@ const steps2 = [
 
 class Locations extends Component {
   state = {
-    tour1: true,
-    tour2: false,
+    tour: false,
     showNav: false,
+    step: 0,
   };
 
+  componentDidMount = () => {
+    const tour = localStorage.getItem('tour'); // eslint-disable-line no-undef
+    if (tour) {
+      this.setState({ tour: false });
+    } else this.setState({ tour: true });
+  }
+
   handleNav1 = () => {
-    this.setState({ tour1: false });
+    this.setState({ tour: false, step: 1 });
   }
 
   handleNav2 = () => {
-    this.setState({ tour2: true });
+    this.setState({ tour: true });
+  }
+
+  handleNav3 = () => {
+    this.setState({ tour: false, step: 2 });
+  }
+
+  handleNav4 = () => {
+    this.setState({ tour: true });
+  }
+
+  handleNav5 = () => {
+    this.setState({ tour: false });
+    localStorage.setItem('tour', true); // eslint-disable-line no-undef
   }
 
   handleClose = () => {
-    this.setState({ tour1: false, tour2: false });
+    this.setState({ tour: false });
   }
 
   render() {
@@ -70,12 +113,6 @@ class Locations extends Component {
       <div className={this.props.classes.root}>
         <Grid container>
           <Grid item xs={12}>
-            <Button
-              color="accent"
-              onClick={this.handleNav2}
-            >
-              test
-            </Button>
             <ActionMenu
               id={this.props.userId}
               handleNav1={this.handleNav1}
@@ -85,39 +122,36 @@ class Locations extends Component {
               !this.props.locations.loading
                 ? (
                   <List>
-                    {this.props.locations.getUser.locations.edges.map(item =>
-                      (<LocationListItem
-                        key={item.node.id}
-                        id={item.node.id}
-                        name={item.node.name}
-                        identifier={item.node.identifier}
-                        userId={this.props.userId}
-                        users={item.node.users.edges}
-                        logs={item.node.logs.aggregations.count}
-                        active={item.node.active}
-                      />))}
+                    {
+                      this.props.locations.getUser.locations.edges.map(item =>
+                        (<LocationListItem
+                          key={item.node.id}
+                          id={item.node.id}
+                          name={item.node.name}
+                          identifier={item.node.identifier}
+                          userId={this.props.userId}
+                          users={item.node.users.edges}
+                          logs={item.node.logs.aggregations.count}
+                          active={item.node.active}
+                          handleNav3={this.handleNav3}
+                          handleNav4={this.handleNav4}
+                          handleNav5={this.handleNav5}
+                        />))
+                    }
                   </List>)
                 : null
             }
           </Grid>
         </Grid>
         <Tour
-          steps={steps1}
-          isOpen={this.state.tour1}
+          steps={steps}
+          isOpen={this.state.tour}
           showNumber={false}
           onRequestClose={this.handleClose}
           closeWithMask={false}
           showButtons={this.state.showNav}
           showNavigation={this.state.showNav}
-        />
-        <Tour
-          steps={steps2}
-          isOpen={this.state.tour2}
-          showNumber={false}
-          onRequestClose={this.handleClose}
-          closeWithMask={false}
-          showButtons={this.state.showNav}
-          showNavigation={this.state.showNav}
+          startAt={this.state.step}
         />
       </div>
     );

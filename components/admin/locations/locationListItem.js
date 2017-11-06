@@ -67,6 +67,7 @@ class LocationList extends Component {
 
   handleClick = (event) => {
     this.setState({ open: true, anchorEl: event.currentTarget });
+    this.props.handleNav3();
   };
 
   handleRequestClose = () => {
@@ -193,6 +194,7 @@ class LocationList extends Component {
         this.setState({
           name: '', nameError: '', username: '', usernameError: '', password: '', passwordError: '', loading: false, openDialog: false,
         });
+        this.props.handleNav4();
       })
       .catch(() => console.log('error')); // eslint-disable-line no-console
   }
@@ -240,14 +242,14 @@ class LocationList extends Component {
         variables: { id: this.props.userId },
       }],
     })
-      .then(() => console.log('ok')) // eslint-disable-line no-console
+      .then(() => console.log('error')) // eslint-disable-line no-console
       .catch(() => console.log('error')); // eslint-disable-line no-console
   }
 
   render() {
     return (
       <div className={this.props.classes.root}>
-        <Paper elevation={10} className={this.props.classes.paper} data-tut="test">
+        <Paper elevation={10} className={this.props.classes.paper} data-tut="item">
           <Grid container justify="center">
             <Grid item xs={2}>
               <FormHelperText>Nombre</FormHelperText>
@@ -261,12 +263,16 @@ class LocationList extends Component {
                 {this.props.identifier}
               </Typography>
             </Grid>
-            <Grid item xs={2} >
+            <Grid item xs={2}>
               <FormHelperText>Usuarios</FormHelperText>
               <Button
                 color="primary"
                 dense
-                onClick={() => this.setState({ openCollapse: !this.state.openCollapse })}
+                data-tut="user"
+                onClick={() => {
+                  this.setState({ openCollapse: !this.state.openCollapse });
+                  this.props.handleNav5();
+                }}
               >
                 {this.props.users.length}
               </Button>
@@ -316,6 +322,9 @@ class LocationList extends Component {
                       value={this.state.name}
                       onChange={this.handleChange('name')}
                     />
+                    <FormHelperText>
+                      Nombre de la persona que podrá acceder a la plataforma
+                    </FormHelperText>
                     <FormHelperText error>{this.state.nameError}</FormHelperText>
                   </FormControl>
                   <FormControl fullWidth>
@@ -328,6 +337,9 @@ class LocationList extends Component {
                       onChange={this.handleChange('username')}
                       endAdornment={<InputAdornment position="end">@{this.props.identifier}</InputAdornment>}
                     />
+                    <FormHelperText>
+                      Nombre de usuario que utilizará la persona para ingresar a la plataforma
+                    </FormHelperText>
                     <FormHelperText error>{this.state.usernameError}</FormHelperText>
                   </FormControl>
                   <FormControl fullWidth>
@@ -349,6 +361,9 @@ class LocationList extends Component {
                         </InputAdornment>
                       }
                     />
+                    <FormHelperText>
+                      Contraseña que utilizará la persona para ingresar a la plataforma
+                    </FormHelperText>
                     <FormHelperText error>{this.state.passwordError}</FormHelperText>
                   </FormControl>
                 </DialogContent>
