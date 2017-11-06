@@ -4,11 +4,9 @@ import Link from 'next/link';
 import { gql, graphql } from 'react-apollo';
 import Button from 'material-ui/Button';
 import { CircularProgress } from 'material-ui/Progress';
-import Checkbox from 'material-ui/Checkbox';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import {
-  FormControlLabel,
   FormHelperText,
 } from 'material-ui/Form';
 import Paper from 'material-ui/Paper';
@@ -49,7 +47,6 @@ class Signin extends Component {
     passwordError: '',
     signinError: '',
     loading: false,
-    remember: false,
   };
 
   handleChange = name => (event) => {
@@ -104,7 +101,7 @@ class Signin extends Component {
     <div>
       <TextField
         id="email"
-        label="email"
+        label="correo"
         type="email"
         fullWidth
         error={this.state.usernameError !== ''}
@@ -114,23 +111,13 @@ class Signin extends Component {
       />
       <TextField
         id="password"
-        label="password"
+        label="contraseña"
         type="password"
         fullWidth
         error={this.state.passwordError !== ''}
         helperText={this.state.passwordError}
         value={this.state.password}
         onChange={this.handleChange('password')}
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={this.state.remember}
-            onChange={this.handleCheckBoxChange('remember')}
-            value="remember"
-          />
-        }
-        label="Remember me"
       />
     </div>
   )
@@ -141,7 +128,7 @@ class Signin extends Component {
         <Paper elevation={4} className={this.props.classes.paper}>
           <form noValidate onSubmit={this.handleSubmit}>
             <Typography type="display1">
-              Signin
+              {'Iniciar Sesión'}
             </Typography>
             {this.renderTextFields()}
             <div className={this.props.classes.wrapper}>
@@ -152,7 +139,7 @@ class Signin extends Component {
                 disabled={this.state.loading}
                 type="submit"
               >
-                Signin
+                {'Iniciar Sesión'}
               </Button>
               {
                 this.state.loading &&
@@ -167,14 +154,14 @@ class Signin extends Component {
             <Link href="/signup">
               <Button className={this.props.classes.buttonSec} color="primary">
                 <Typography type="caption">
-                  Signup
+                  {'Registrarse'}
                 </Typography>
               </Button>
             </Link>
             <Link href="/recover">
               <Button className={this.props.classes.buttonSec} color="primary" disabled={this.state.loading}>
                 <Typography type="caption">
-                  Recover Password
+                  {'Recuperar contraseña'}
                 </Typography>
               </Button>
             </Link>

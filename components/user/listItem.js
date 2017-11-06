@@ -135,7 +135,7 @@ class ListItem extends Component {
             <Grid item xs={12} sm={3} md={3}>
               <FormHelperText>Entrada</FormHelperText>
               <Typography type="subheading" color="inherit">
-                {moment(this.props.item.in).format('hh:mm:ss, DD-MM-YYYY')}
+                {moment(this.props.item.in).format('HH:mm:ss, DD-MM-YYYY')}
               </Typography>
               <FormHelperText>Salida</FormHelperText>
               <Typography type="subheading" color="inherit" noWrap>

@@ -45,7 +45,7 @@ class Admin extends Component {
       <div className={this.props.classes.root}>
         {
           this.state.loading
-            ? 'Loading ...'
+            ? 'Cargando ...'
             :
             <Main handleChange={this.handleChange}>
               <Locations userId={this.state.id} />

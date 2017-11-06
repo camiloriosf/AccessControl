@@ -42,10 +42,10 @@ const styles = {
 class Signup extends Component {
   state = {
     name: '',
-    username: '',
+    email: '',
     password: '',
     nameError: '',
-    usernameError: '',
+    emailError: '',
     passwordError: '',
     signinError: '',
     loading: false,
@@ -59,11 +59,11 @@ class Signup extends Component {
     this.setState({ loading: true, signinError: '' });
     event.preventDefault();
     const nameError = inputValidation({ name: 'name', value: this.state.name });
-    const usernameError = inputValidation({ name: 'username', value: this.state.username });
+    const emailError = inputValidation({ name: 'email', value: this.state.email });
     const passwordError = inputValidation({ name: 'password', value: this.state.password });
 
-    if (nameError !== '' || usernameError !== '' || passwordError !== '') {
-      this.setState({ nameError, usernameError, passwordError });
+    if (nameError !== '' || emailError !== '' || passwordError !== '') {
+      this.setState({ nameError, emailError, passwordError });
       this.setState({ loading: false });
       return;
     }
@@ -72,7 +72,7 @@ class Signup extends Component {
       variables: {
         user: {
           name: this.state.name,
-          username: this.state.username,
+          username: this.state.email,
           password: this.state.password,
         },
       },
@@ -81,22 +81,20 @@ class Signup extends Component {
         if (!data.errors) {
           localStorage.setItem('token', data.createUser.token); // eslint-disable-line no-undef
           localStorage.setItem('user', JSON.stringify(data.createUser.changedUser)); // eslint-disable-line no-undef
-          this.setState({
-            name: '', username: '', password: '', loading: false,
-          });
+          this.setState({ name: '', email: '', password: '' });
           Router.push('/user');
         } else {
           this.setState({ signinError: 'error al crear cuenta, intentalo nuevamente', loading: false });
         }
       })
-      .catch(() => this.setState({ usernameError: 'error al crear cuenta, intentalo nuevamente', loading: false }));
+      .catch(() => this.setState({ emailError: 'error al crear cuenta, intentalo nuevamente', loading: false }));
   }
 
   renderTextFields = () => (
     <div>
       <TextField
         id="name"
-        label="name"
+        label="nombre"
         type="name"
         fullWidth
         error={this.state.nameError !== ''}
@@ -106,17 +104,17 @@ class Signup extends Component {
       />
       <TextField
         id="email"
-        label="email"
+        label="correo"
         type="email"
         fullWidth
-        error={this.state.usernameError !== ''}
-        helperText={this.state.usernameError}
-        value={this.state.username}
-        onChange={this.handleChange('username')}
+        error={this.state.emailError !== ''}
+        helperText={this.state.emailError}
+        value={this.state.email}
+        onChange={this.handleChange('email')}
       />
       <TextField
         id="password"
-        label="password"
+        label="contraseña"
         type="password"
         fullWidth
         error={this.state.passwordError !== ''}
@@ -133,7 +131,7 @@ class Signup extends Component {
         <Paper elevation={4} className={this.props.classes.paper}>
           <form noValidate onSubmit={this.handleSubmit}>
             <Typography type="display1">
-              Signup
+              {'Registrarse'}
             </Typography>
             {this.renderTextFields()}
             <div className={this.props.classes.wrapper}>
@@ -144,7 +142,7 @@ class Signup extends Component {
                 disabled={this.state.loading}
                 type="submit"
               >
-              Signup
+                {'Registrarse'}
               </Button>
               {
                 this.state.loading &&
@@ -159,14 +157,14 @@ class Signup extends Component {
             <Link href="/">
               <Button className={this.props.classes.buttonSec} color="primary" disabled={this.state.loading}>
                 <Typography type="caption">
-                  Signin
+                  {'Iniciar sesión'}
                 </Typography>
               </Button>
             </Link>
             <Link href="/recover">
               <Button className={this.props.classes.buttonSec} color="primary" disabled={this.state.loading}>
                 <Typography type="caption">
-                  Recover Password
+                  {'Recuperar contraseña'}
                 </Typography>
               </Button>
             </Link>

@@ -43,7 +43,7 @@ class Recover extends Component {
       <div className={this.props.classes.root}>
         {
           this.state.loading
-            ? 'Loading ...'
+            ? 'Cargando ...'
             :
             <RecoverComponent />
         }

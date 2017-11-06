@@ -52,6 +52,7 @@ class ActionMenu extends Component {
 
   handleClickOpen = () => {
     this.setState({ open: true });
+    this.props.handleNav1();
   };
 
   handleRequestClose = () => {
@@ -90,13 +91,23 @@ class ActionMenu extends Component {
                     identifier
                     active
                     users{
+                      edges{
+                        node{
+                          id
+                          name
+                          username
+                          lastLogin
+                        }
+                      }
+                    }
+                    logs{
                       aggregations{
                         count
                       }
                     }
+                  }
                 }
               }
-            }
             }
           }
         `,
@@ -107,6 +118,7 @@ class ActionMenu extends Component {
         this.setState({
           name: '', identifier: '', nameError: '', loading: false, open: false,
         });
+        this.props.handleNav2();
       })
       .catch(() => console.log('error')); // eslint-disable-line no-console
   }
@@ -114,17 +126,19 @@ class ActionMenu extends Component {
   render() {
     return (
       <div className={this.props.classes.root}>
-        <div className={this.props.classes.button}>
+        <div className={this.props.classes.button} data-tut="start">
           <Typography type="title" color="inherit" noWrap className={this.props.classes.flex}>
-                Locaciones
+            {'Edificios/Condominios'}
           </Typography>
-          <Button
-            fab
-            color="primary"
-            onClick={this.handleClickOpen}
-          >
-            <AddIcon />
-          </Button>
+          <div>
+            <Button
+              fab
+              color="primary"
+              onClick={this.handleClickOpen}
+            >
+              <AddIcon />
+            </Button>
+          </div>
         </div>
         <Dialog
           open={this.state.open}
@@ -144,6 +158,7 @@ class ActionMenu extends Component {
               value={this.state.name}
               className={this.props.classes.textField}
               onChange={this.handleChange('name')}
+              data-tut="text"
             />
             <TextField
               id="identifier"
@@ -163,6 +178,12 @@ class ActionMenu extends Component {
               onClick={this.handleClick}
             >
               Agregar
+            </Button>
+            <Button
+              color="accent"
+              onClick={this.handleRequestClose}
+            >
+              Cancelar
             </Button>
           </DialogActions>
         </Dialog>

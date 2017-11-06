@@ -4,7 +4,8 @@ import ListItem from './listItem';
 
 const styles = {
   root: {
-
+    maxHeight: 500,
+    overflowY: 'auto',
   },
 };
 

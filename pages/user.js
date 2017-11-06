@@ -45,7 +45,7 @@ class User extends Component {
       <div className={this.props.classes.root}>
         {
           this.state.loading
-            ? 'Loading ...'
+            ? 'Cargando ...'
             :
             <Main>
               <UserComponent userId={this.state.id} />

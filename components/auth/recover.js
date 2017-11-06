@@ -29,23 +29,23 @@ class Recover extends Component {
       <div className={this.props.classes.root}>
         <Paper elevation={4} className={this.props.classes.paper}>
           <Typography type="display1">
-            Recover password
+            {'Recuperar contraseña'}
           </Typography>
-          <TextField id="email" label="email" type="email" fullWidth />
+          <TextField id="email" label="correo" type="email" fullWidth />
           <Button raised className={this.props.classes.button} color="accent" onClick={this.handleClick}>
-            Recover password
+            {'Recuperar contraseña'}
           </Button>
           <Link href="/">
             <Button className={this.props.classes.buttonSec} color="primary">
               <Typography type="caption">
-                Signin
+                {'Iniciar Sesión'}
               </Typography>
             </Button>
           </Link>
           <Link href="/signup">
             <Button className={this.props.classes.buttonSec} color="primary">
               <Typography type="caption">
-                Signup
+                {'Registrarse'}
               </Typography>
             </Button>
           </Link>
