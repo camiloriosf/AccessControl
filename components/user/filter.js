@@ -30,7 +30,7 @@ class Recover extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    // this.props.handleFilter(nextState);
+    this.props.handleFilter(nextState);
   }
 
   handleChange = name => (event) => {
@@ -52,7 +52,7 @@ class Recover extends Component {
       <div className={this.props.classes.root}>
         <Paper elevation={10} className={this.props.classes.paper}>
           <Grid container justify="center">
-            <Grid item xs={8} className={this.props.classes.grid}>
+            <Grid item xs={4} className={this.props.classes.grid}>
               <TextField
                 id="search"
                 label="Buscar"

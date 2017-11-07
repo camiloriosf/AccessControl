@@ -28,9 +28,9 @@ class Admin extends Component {
         if (loggedInUser !== null) {
           if (loggedInUser.type === 'admin') this.renderComponent();
           else if (loggedInUser.type === 'user') Router.push('/user');
-          else { localStorage.removeItem('user'); localStorage.removeItem('token'); Router.push('/'); } // eslint-disable-line no-undef
-        } else Router.push('/');
-      }).catch(() => Router.push('/'));
+          else { localStorage.removeItem('user'); localStorage.removeItem('token'); Router.push('/signin'); } // eslint-disable-line no-undef
+        } else Router.push('/signin');
+      }).catch(() => Router.push('/signin'));
     } else {
       Router.push('/');
     }

@@ -46,7 +46,7 @@ class Main extends Component {
   handleSignout = () => {
     localStorage.removeItem('token'); // eslint-disable-line no-undef
     localStorage.removeItem('user'); // eslint-disable-line no-undef
-    Router.push('/');
+    Router.push('/signin');
   };
 
   render() {

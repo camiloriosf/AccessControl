@@ -158,13 +158,6 @@ class Signin extends Component {
                 </Typography>
               </Button>
             </Link>
-            <Link href="/recover">
-              <Button className={this.props.classes.buttonSec} color="primary" disabled={this.state.loading}>
-                <Typography type="caption">
-                  {'Recuperar contraseña'}
-                </Typography>
-              </Button>
-            </Link>
           </form>
         </Paper>
       </div>

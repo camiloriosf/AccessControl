@@ -72,6 +72,7 @@ const steps = [
 class Locations extends Component {
   state = {
     tour: false,
+    noTour: false,
     showNav: false,
     step: 0,
   };
@@ -79,28 +80,29 @@ class Locations extends Component {
   componentDidMount = () => {
     const tour = localStorage.getItem('tour'); // eslint-disable-line no-undef
     if (tour) {
-      this.setState({ tour: false });
+      this.setState({ noTour: true });
     } else this.setState({ tour: true });
   }
 
   handleNav1 = () => {
-    this.setState({ tour: false, step: 1 });
+    if (!this.state.noTour) this.setState({ tour: false, step: 1 });
   }
 
   handleNav2 = () => {
-    this.setState({ tour: true });
+    if (!this.state.noTour) setTimeout(() => { this.setState({ tour: true }); }, 500);
   }
 
   handleNav3 = () => {
-    this.setState({ tour: false, step: 2 });
+    if (!this.state.noTour) this.setState({ tour: false, step: 2 });
   }
 
   handleNav4 = () => {
-    this.setState({ tour: true });
+    if (!this.state.noTour) this.setState({ tour: true });
   }
 
   handleNav5 = () => {
-    this.setState({ tour: false });
+    if (!this.state.noTour) this.setState({ tour: false });
+    this.setState({ noTour: true });
     localStorage.setItem('tour', true); // eslint-disable-line no-undef
   }
 

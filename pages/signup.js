@@ -6,10 +6,15 @@ import withRoot from '../components/withRoot';
 import withData from '../lib/withData';
 import SignupComponent from '../components/auth/signup';
 import checkLoggedIn from '../lib/check-logged-in';
+import Header from '../components/index/header';
+import Footer from '../components/index/footer';
 
 const styles = {
   root: {
-    paddingTop: 200,
+
+  },
+  signin: {
+    paddingTop: 100,
     width: 400,
     margin: '0 auto',
   },
@@ -41,12 +46,16 @@ class Signup extends Component {
   render() {
     return (
       <div className={this.props.classes.root}>
-        {
-          this.state.loading
-            ? 'Cargando ...'
-            :
-            <SignupComponent />
-        }
+        <Header />
+        <div className={this.props.classes.signin}>
+          {
+            this.state.loading
+              ? 'Cargando ...'
+              :
+              <SignupComponent />
+          }
+        </div>
+        <Footer />
       </div>
     );
   }

@@ -3,36 +3,41 @@ import Router from 'next/router';
 import { withApollo } from 'react-apollo';
 import { withStyles } from 'material-ui/styles';
 import withRoot from '../components/withRoot';
-import Main from '../components/user/main';
-import UserComponent from '../components/user/user';
 import withData from '../lib/withData';
+import SigninComponent from '../components/auth/signin';
 import checkLoggedIn from '../lib/check-logged-in';
+import Header from '../components/index/header';
+import Footer from '../components/index/footer';
 
 const styles = {
   root: {
 
   },
+  signin: {
+    paddingTop: 100,
+    width: 400,
+    margin: '0 auto',
+  },
 };
 
-class User extends Component {
+class Signin extends Component {
   state = {
     loading: true,
-    id: '',
-  }
+  };
 
   componentDidMount = () => {
+    // console.log(this.props);
     if (localStorage.getItem('user')) { // eslint-disable-line no-undef
       const user = JSON.parse(localStorage.getItem('user')); // eslint-disable-line no-undef
-      this.setState({ id: user.id });
       checkLoggedIn(this.props.client, user).then(({ loggedInUser }) => {
         if (loggedInUser !== null) {
           if (loggedInUser.type === 'admin') Router.push('/admin');
-          else if (loggedInUser.type === 'user') this.renderComponent();
-          else { localStorage.removeItem('user'); localStorage.removeItem('token'); Router.push('/signin'); } // eslint-disable-line no-undef
-        } else Router.push('/signin');
-      }).catch(() => Router.push('/signin'));
+          else if (loggedInUser.type === 'user') Router.push('/user');
+          else { localStorage.removeItem('user'); localStorage.removeItem('token'); } // eslint-disable-line no-undef
+        } else this.renderComponent();
+      }).catch(() => this.renderComponent());
     } else {
-      Router.push('/signin');
+      this.renderComponent();
     }
   }
 
@@ -43,17 +48,19 @@ class User extends Component {
   render() {
     return (
       <div className={this.props.classes.root}>
-        {
-          this.state.loading
-            ? 'Cargando ...'
-            :
-            <Main>
-              <UserComponent userId={this.state.id} />
-            </Main>
-        }
+        <Header />
+        <div className={this.props.classes.signin}>
+          {
+            this.state.loading
+              ? 'Cargando ...'
+              :
+              <SigninComponent />
+          }
+        </div>
+        <Footer />
       </div>
     );
   }
 }
 
-export default withRoot(withData(withApollo(withStyles(styles)(User))));
+export default withRoot(withData(withApollo(withStyles(styles)(Signin))));

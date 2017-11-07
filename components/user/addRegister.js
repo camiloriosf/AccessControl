@@ -140,7 +140,7 @@ class RegisterCard extends Component {
     })
       .then(() => {
         this.setState({
-          name: '', rut: '', to: '', plate: '', comments: '',
+          name: '', rut: '', to: '', plate: '', comments: '', open: false, type: 'car',
         });
       })
       .catch(() => console.log('error')); // eslint-disable-line no-console

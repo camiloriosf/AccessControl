@@ -154,17 +154,10 @@ class Signup extends Component {
                 ? <FormHelperText error>{this.state.signinError}</FormHelperText>
                 : null
             }
-            <Link href="/">
+            <Link href="/signin">
               <Button className={this.props.classes.buttonSec} color="primary" disabled={this.state.loading}>
                 <Typography type="caption">
                   {'Iniciar sesión'}
-                </Typography>
-              </Button>
-            </Link>
-            <Link href="/recover">
-              <Button className={this.props.classes.buttonSec} color="primary" disabled={this.state.loading}>
-                <Typography type="caption">
-                  {'Recuperar contraseña'}
                 </Typography>
               </Button>
             </Link>
