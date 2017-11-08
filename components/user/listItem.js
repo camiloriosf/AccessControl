@@ -139,7 +139,7 @@ class ListItem extends Component {
               </Typography>
               <FormHelperText>Salida</FormHelperText>
               <Typography type="subheading" color="inherit" noWrap>
-                {this.props.item.out ? moment(this.props.item.out).format('hh:mm:ss, DD-MM-YYYY') : '-'}
+                {this.props.item.out ? moment(this.props.item.out).format('HH:mm:ss, DD-MM-YYYY') : '-'}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={2} md={2} className={this.props.classes.iconButton}>
@@ -153,7 +153,7 @@ class ListItem extends Component {
           <DialogTitle>Registrar Salida</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Registrar salida de {this.props.item.name}, rut {this.props.item.rut} {this.props.item.type === 'car' ? `patente ${this.props.item.plate}` : ''} a las {moment(this.state.out).format('hh:mm:ss, DD-MM-YYYY')}.
+              Registrar salida de {this.props.item.name}, rut {this.props.item.rut} {this.props.item.type === 'car' ? `patente ${this.props.item.plate}` : ''} a las {moment(this.state.out).format('HH:mm:ss, DD-MM-YYYY')}.
             </DialogContentText>
           </DialogContent>
           <DialogActions>

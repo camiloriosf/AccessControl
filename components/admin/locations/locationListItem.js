@@ -343,7 +343,7 @@ class LocationList extends Component {
                     <FormHelperText error>{this.state.usernameError}</FormHelperText>
                   </FormControl>
                   <FormControl fullWidth>
-                    <InputLabel htmlFor="password">password</InputLabel>
+                    <InputLabel htmlFor="password">contraseña</InputLabel>
                     <Input
                       id="password"
                       fullWidth
